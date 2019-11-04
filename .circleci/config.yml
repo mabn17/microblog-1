@@ -14,12 +14,18 @@ jobs:
       # Step 1: optain repo from GitHub
       - checkout
       # Step 2: Create viritual env and install dependencies
+      # - run:
+      #     name: install dependencies
+      #     command: |
+      #       python3 -m venv venv
+      #       . venv/bin/activate
+      #       make install-test
       - run:
-          name: install dependencies
+          name: Install Docker Compose
           command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            make install-test
+            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
       # Step 3: run integration tests
       - run:
           name: run docker tests
