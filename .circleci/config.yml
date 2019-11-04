@@ -1,13 +1,14 @@
 version: 2
 jobs:
   build:
+    machine: true
     working_directory: ~/repo
 
     environment:
       FLASK_ENV: test
       FLASK_APP: microblog.py
     steps:
-      - setup_remote_docker
+      - checkout
       - run:
           name: run docker tests
           command: |
