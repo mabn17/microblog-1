@@ -9,7 +9,7 @@ jobs:
     environment:
       FLASK_ENV: test
       FLASK_APP: microblog.py
-
+      DOCKER_HOST: 127.0.0.1:2375
     steps:
       # Step 1: optain repo from GitHub
       - checkout
