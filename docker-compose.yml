@@ -1,7 +1,7 @@
 version: "3"
 services:
   test:
-    container_name: tests
+    container_name: test
     environment:
       SECRET_KEY: 1238jasds2dh8akjsdaä2kdsa
       FLASK_ENV: test

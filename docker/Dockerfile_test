@@ -1,11 +1,21 @@
-FROM python:3.6-alpine
+FROM debian:stretch-slim
 
-RUN adduser -D microblog
-WORKDIR /home/microblog
+RUN apt-get update && apt-get upgrade && \
+    apt-get install -y python3-pip python3-dev build-essential
+RUN pip3 install virtualenv
+
+COPY . /appss
+WORKDIR /appss
 
 COPY . .
-RUN python -m venv venv
-RUN venv/bin/pip3 install -r requirements/test.txt
+RUN python3 -m virtualenv venv
+RUN /bin/bash -c "source /appss/venv/bin/activate"
+
+ENV LC_ALL=C.UTF-8
+ENV export LANG=C.UTF-8
+
+RUN make install-test
+RUN flask db upgrade
 
 RUN chmod +x test.sh
 
