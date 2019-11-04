@@ -22,21 +22,20 @@ jobs:
             make install-test
       # Step 3: run integration tests
       - run:
-          name: run integration tests
+          name: run docker tests
           command: |
-            . venv/bin/activate
-            make test-integration
+            make test
       # Step 4: run unittests
-      - run:
-          name: run unittests
-          command: |
-            . venv/bin/activate
-            make test-unit
-      # Step 4: run validations
-      - run:
-          name: run validate
-          command: |
-            . venv/bin/activate
-            make validate
-      - store_artifacts:
-          path: tests/coverage_html
+      # - run:
+      #     name: run unittests
+      #     command: |
+      #       . venv/bin/activate
+      #       make test-unit
+      # # Step 4: run validations
+      # - run:
+      #     name: run validate
+      #     command: |
+      #       . venv/bin/activate
+      #       make validate
+      # - store_artifacts:
+      #     path: tests/coverage_html
