@@ -54,15 +54,15 @@ class User(UserMixin, db.Model):
         """
         return User.query.get(int(id_))
 
-    def avatar(self, size="80"):
-        """
-        Return Gravatar URL based on email
-        """
-        digest = md5(self.email.lower().encode('utf-8')).hexdigest()
-        url = 'https://www.gravatar.com/avatar/{}?d=retro&s={}'.format(
-            digest, size)
-        current_app.logger.debug("Get gravatar {}".format(url))
-        return url
+    # def avatar(self, size="80"):
+    #     """
+    #     Return Gravatar URL based on email
+    #     """
+    #     digest = md5(self.email.lower().encode('utf-8')).hexdigest()
+    #     url = 'https://www.gravatar.com/avatar/{}?d=retro&s={}'.format(
+    #         digest, size)
+    #     current_app.logger.debug("Get gravatar {}".format(url))
+    #     return url
 
     def follow(self, user):
         """
