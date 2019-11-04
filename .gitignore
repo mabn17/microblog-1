@@ -107,3 +107,13 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# editor
+.vscode
+
+# docker
+mysql-data
+
+# misc
+DS_Store
+.DS_Store
