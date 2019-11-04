@@ -1,0 +1,37 @@
+version: "3"
+services:
+  test:
+    container_name: tests
+    environment:
+      SECRET_KEY: 1238jasds2dh8akjsdaä2kdsa
+      FLASK_ENV: test
+      FLASK_APP: microblog.py
+    build:
+      context: .
+      dockerfile: docker/Dockerfile_test
+
+  prod:
+    container_name: prod
+    environment:
+      SECRET_KEY: 1238jasds2dh8akjsdaä2kdsa
+      DATABASE_URL: mysql+pymysql://microblog:pass@dbserver/microblog
+      FLASK_APP: microblog.py
+      FLASK_ENV: production
+    build:
+      context: .
+      dockerfile: docker/Dockerfile_prod
+    links:
+      - mysql:dbserver
+    ports:
+      - "5000:5000"
+
+  mysql:
+    image: mysql/mysql-server:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: microblog
+      MYSQL_USER: microblog
+      MYSQL_PASSWORD: pass
+    volumes:
+      - ./mysql-data:/var/lib/mysql
