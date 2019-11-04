@@ -13,7 +13,6 @@ followers = db.Table('followers',
                      db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
                      db.Column('followed_id', db.Integer, db.ForeignKey('user.id')))
 
-
 class User(UserMixin, db.Model):
     """
     Represetns a system User
@@ -95,6 +94,7 @@ class User(UserMixin, db.Model):
                 followers.c.follower_id == self.id)
         own = Post.query.filter_by(user_id=self.id)
         return followed.union(own).order_by(Post.timestamp.desc())
+
 
 class Post(db.Model):
     """
