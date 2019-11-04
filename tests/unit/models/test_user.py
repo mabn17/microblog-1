@@ -47,7 +47,7 @@ def test_avatar(_mock_current_app, user1):
                                  'd4c74594d841139328695756648b6bd6'
                                  '?d=retro&s=128')
 
-def test_follow(test_app):
+def test_follow(_test_app):
     """
     Dockstring
     """
@@ -74,7 +74,7 @@ def test_follow(test_app):
     assert user1.followers.count() == 0
 
 
-def test_follow_posts(test_app):
+def test_follow_posts(_test_app):
     """
     Dockstring
     """
