@@ -87,13 +87,13 @@ def test_follow_posts(test_app): # pylint: disable=unused-argument
     # create four posts
     now = datetime.utcnow()
     post1 = Post(body="post from john", author=user1,
-              timestamp=now + timedelta(seconds=1))
+                 timestamp=now + timedelta(seconds=1))
     post2 = Post(body="post from susan", author=user2,
-              timestamp=now + timedelta(seconds=4))
+                 timestamp=now + timedelta(seconds=4))
     post3 = Post(body="post from mary", author=user3,
-              timestamp=now + timedelta(seconds=3))
+                 timestamp=now + timedelta(seconds=3))
     post4 = Post(body="post from david", author=user4,
-              timestamp=now + timedelta(seconds=2))
+                 timestamp=now + timedelta(seconds=2))
     db.session.add_all([post1, post2, post3, post4])
     db.session.commit()
 
