@@ -105,10 +105,11 @@ def test_follow_posts(test_app): # pylint: disable=unused-argument
     db.session.commit()
 
     # check the followed posts of each user
-    f1 = user1.followed_posts().all()
-    f2 = user2.followed_posts().all()
-    f3 = user3.followed_posts().all()
-    # f4 = user4.followed_posts().all()
-    assert f1 == [post2, post4, post1]
-    assert f2 == [post2, post3]
-    assert f3 == [post3, post4]
+    follow1 = user1.followed_posts().all()
+    follow2 = user2.followed_posts().all()
+    follow3 = user3.followed_posts().all()
+    follow4 = user4.followed_posts().all()
+    assert follow1 == [post2, post4, post1]
+    assert follow2 == [post2, post3]
+    assert follow3 == [post3, post4]
+    assert follow4 == [post4]
