@@ -47,7 +47,7 @@ def test_avatar(_mock_current_app, user1):
                                  'd4c74594d841139328695756648b6bd6'
                                  '?d=retro&s=128')
 
-def test_follow(_test_app):
+def test_follow(test_app): # pylint: disable=unused-argument
     """
     Dockstring
     """
@@ -69,12 +69,11 @@ def test_follow(_test_app):
 
     user1.unfollow(user2)
     db.session.commit()
-    assert user1.is_following(user2) == False
+    assert user1.is_following(user2) is not True
     assert user1.followed.count() == 0
     assert user1.followers.count() == 0
 
-
-def test_follow_posts(_test_app):
+def test_follow_posts(test_app): # pylint: disable=unused-argument
     """
     Dockstring
     """
