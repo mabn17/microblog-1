@@ -50,7 +50,7 @@ jobs:
           command: docker-compose up --build -d $IMG_SHORT
       - run:
           name: Rename Docker image
-          command: docker tag $IMG_SHORT:latest mabn17/microblog-1_prod:latest
+          command: docker tag $CI_IMAGE_NAME:latest mabn17/microblog-1_prod:latest
       - run:
           name: Archive Docker image
           command: docker save -o image.tar mabn17/microblog-1_prod
