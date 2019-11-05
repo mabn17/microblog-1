@@ -52,6 +52,9 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 
+# Docker database
+mysql-data
+
 # Translations
 *.mo
 *.pot
@@ -117,3 +120,4 @@ mysql-data
 # misc
 DS_Store
 .DS_Store
+tests/coverage_html/
