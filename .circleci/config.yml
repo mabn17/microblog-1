@@ -1,15 +1,17 @@
-version: 2
+version: 2.1
+  executors:
+    docker-publisher:
+      docker:
+        - image: circleci/buildpack-deps:stretch
 jobs:
+
   test:
     docker:
       - image: circleci/python:3.7-node-browsers-legacy
-
     working_directory: ~/repo
-
     environment:
       FLASK_ENV: test
       FLASK_APP: microblog.py
-
     steps:
       # Step 1: optain repo from GitHub
       - checkout
@@ -38,9 +40,9 @@ jobs:
           command: |
             . venv/bin/activate
             make validate
+
   build:
-    docker:
-      - image: circleci/buildpack-deps:stretch
+    executor: docker-publisher
     environment:
       FLASK_ENV: production
       FLASK_APP: microblog.py
@@ -50,8 +52,9 @@ jobs:
       - run:
           name: Build Docker image
           command: docker-compose up -d
+
   publish-latest:
-    executor: machine
+    executor: docker-publisher
     steps:
       - attach_workspace:
           at: /tmp/workspace
