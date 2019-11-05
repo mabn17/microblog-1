@@ -74,6 +74,11 @@ workflows:
   build-master:
     jobs:
       - test:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
       - build:
           requires:
             - test
