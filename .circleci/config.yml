@@ -1,6 +1,10 @@
 version: 2.1
 executors:
   docker-publisher:
+    environment:
+      FLASK_ENV: production
+      FLASK_APP: microblog.py
+      IMAGE_NAME: microblog-1_prod
     docker:
       - image: circleci/buildpack-deps:stretch
 jobs:
@@ -36,15 +40,12 @@ jobs:
             make validate
   build:
     executor: docker-publisher
-    environment:
-      FLASK_ENV: production
-      FLASK_APP: microblog.py
     steps:
       - checkout
       - setup_remote_docker
       - run:
           name: Build Docker image
-          command: docker-compose up -d
+          command: docker-compose up --build -d prod
       - run:
           name: Arcive Docker image
           command: docker save -o image.tar $IMAGE_NAME
