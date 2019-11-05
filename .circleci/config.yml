@@ -38,8 +38,6 @@ jobs:
           command: |
             . venv/bin/activate
             make validate
-      - store_artifacts:
-          path: tests/coverage_html
   build:
     docker:
       - image: circleci/buildpack-deps:stretch
@@ -53,7 +51,7 @@ jobs:
           name: Build Docker image
           command: docker-compose up -d
   publish-latest:
-    executor: docker-publisher
+    executor: machine
     steps:
       - attach_workspace:
           at: /tmp/workspace
@@ -65,7 +63,7 @@ jobs:
           name: Publish Docker Image to Docker Hub
           command: |
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-            docker push $IMAGE_NAME:latest
+            docker push mabn17/$IMAGE_NAME:latest
 
 workflows:
   version: 2
