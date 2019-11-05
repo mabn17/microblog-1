@@ -48,8 +48,8 @@ jobs:
           name: Build Docker image
           command: docker-compose up --build -d $IMG_SHORT
       - run:
-          name: Arcive Docker image
-          command: docker save -o image.tar $IMG_SHORT
+          name: Archive Docker image
+          command: docker save -o image.tar $IMAGE_NAME
       - persist_to_workspace:
           root: .
           paths:
@@ -66,8 +66,8 @@ jobs:
       - run:
           name: Publish Docker Image to Docker Hub
           command: |
-            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-            docker push mabn17/$IMAGE_NAME:latest
+            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --p assword-stdin
+            docker push $IMAGE_NAME:latest
 workflows:
   version: 2
   build-master:
@@ -77,6 +77,8 @@ workflows:
             branches:
               only: master
       - build:
+          requires:
+            - test
           filters:
             branches:
               only: master
