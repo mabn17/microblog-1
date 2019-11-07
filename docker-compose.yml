@@ -35,3 +35,10 @@ services:
       MYSQL_PASSWORD: pass
     volumes:
       - ./mysql-data:/var/lib/mysql
+  
+  start:
+    container_name: start
+    image: mabn17/microblog-1_prod:latest
+    restart: always
+    ports:
+      - "5000:5000"
