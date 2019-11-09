@@ -11,35 +11,18 @@ executors:
       - image: circleci/buildpack-deps:stretch
 jobs:
   test:
-    docker:
-      - image: circleci/python:3.7-node-browsers-legacy
+    machine: true
     working_directory: ~/repo
+
     environment:
       FLASK_ENV: test
       FLASK_APP: microblog.py
     steps:
       - checkout
       - run:
-          name: install dependencies
+          name: run docker tests
           command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            make install-test
-      - run:
-          name: run integration tests
-          command: |
-            . venv/bin/activate
-            make test-integration
-      - run:
-          name: run unittests
-          command: |
-            . venv/bin/activate
-            make test-unit
-      - run:
-          name: run validate
-          command: |
-            . venv/bin/activate
-            make validate
+            make test
   build:
     executor: docker-publisher
     steps:
