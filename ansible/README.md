@@ -60,7 +60,7 @@ Without ssh-key files we need to enter the password for out ssh-key everytime we
 
 ```
 eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/aws
+ssh-add ~/.ssh/deploy.pem
 ```
 
 #### AWS

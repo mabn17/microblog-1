@@ -1,0 +1,10 @@
+---
+root_password: $6$o7qIK17fM4N.sV$UcDpTlPqDn0Xb8ycX4jjUWPMIoDLIywFXs9xM.YNfOG70XWlQijUasvBK6j2G1uiT9X0NdrFkYkXzf3pug4Q.1
+
+server_user: mabn
+server_user_password: $6$THnbYIQFKKFq5$NSSyB5hNHPfnfnX0X1zhXgI9FEQiY7IkwQA0HLNICiZGvC35SEtzCFFwalw1dMi.pW9YJNELmNIGlXHtFxE1T.
+server_user_groups:
+  - sudo
+
+pub_ssh_key_location:
+  - ~/.ssh/id_rsa.pub
