@@ -3,10 +3,21 @@
 # Put ansible cridentials in a config file and add to ENV to avoid the need to input password all the time.
 # Need dos2unix installed. Might not be needed on a Linux computer.
 
+# if [ -x "$(command -v powershell.exe)" ]; then
+#     copied_text=$(powershell.exe Get-Clipboard)
+# else
+#     copied_text=$(xclip -o)
+# fi
+
+# ansible-vault decrypt aws_keys.yml
+# echo "$copied_text" | dos2unix | gsed -e '1s/^/---\n/' -e 's/\[default\]//' -e 's/access_key=/key=/' -e 's/key_id/key/' -re 's/(key|token)=(\w)/\1: \2/g' > aws_keys.yml
+# ansible-vault encrypt aws_keys.yml
+
 if [ -x "$(command -v powershell.exe)" ]; then
     copied_text=$(powershell.exe Get-Clipboard)
 else
-    copied_text=$(xclip -o)
+    # copied_text=$(xclip -o)
+    copied_text=$(pbpaste)
 fi
 
 ansible-vault decrypt aws_keys.yml
