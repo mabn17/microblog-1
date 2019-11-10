@@ -1,0 +1,13 @@
+version: "3"
+services:
+  mysql:
+    image: mysql/mysql-server:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: microblog
+      MYSQL_USER: microblog
+      MYSQL_PASSWORD: pass
+    restart: always
+    volumes:
+      - /home/mabn/mysql-data:/var/lib/mysql
