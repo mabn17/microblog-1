@@ -1,7 +1,0 @@
----
-  - host: appServer
-    remote_user: mabn
-    become: yes
-    become_method: sudo
-    roles:
-      - appServer

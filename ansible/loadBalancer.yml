@@ -1,7 +1,0 @@
----
-- host: loadBalancer
-  remote_user: mabn
-  become: yes
-  become_method: sudo
-  roles:
-    - loadBalancer

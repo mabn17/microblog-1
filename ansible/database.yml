@@ -1,7 +1,10 @@
 ---
     -   hosts: database
-        remote_user: admin
+        remote_user: mabn
         become: yes
         become_method: sudo
+        vars:
+          ansible_python_interpreter: /usr/bin/python3
         roles:
-            - database
+          - docker_dependencies
+          - database

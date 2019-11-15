@@ -7,6 +7,6 @@
         group: "{{ server_user }}"
         mode: '0644'
 
--   name: Run docker-compose up to start MySql
+-   name: Run docker-compose up to start the application
     docker_compose:
       project_src: /home/{{ server_user }}/
