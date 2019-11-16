@@ -1,7 +1,7 @@
 ---
 -   name: Install docker step 1
     apt:
-        name: "{{ packages + pip }}"
+        name: "{{ packages + pip_packages }}"
 
 -   name: Installing docker public key to apt
     apt_key:

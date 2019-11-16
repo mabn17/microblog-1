@@ -9,4 +9,4 @@
 
 -   name: Run docker-compose up to start MySql
     docker_compose:
-      project_src: /home/{{ server_user }}/
+        project_src: /home/{{ server_user }}/

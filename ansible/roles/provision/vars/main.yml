@@ -1,5 +1,5 @@
 ---
-    keypair: deploy
+    keypair: first
     image: ami-0f5c5066b40f2414e
     instances:
       - instance_type: t2.micro
@@ -11,8 +11,6 @@
           - "app-server"
         security_group: app-server
         count: 1
-        # count_tag:
-        #   name: app-server
       - instance_type: t2.micro
         instance_tags:
           project: "{{  project_name  }}"
@@ -22,8 +20,6 @@
           - "load-balancer"
         security_group: load-balancer
         count: 1
-        # count_tag:
-        #   name: load-balancer
       - instance_type: t2.micro
         instance_tags:
           project: "{{  project_name  }}"
@@ -33,5 +29,3 @@
           - "database"
         security_group: database
         count: 1
-        # count_tag:
-        #   Name: database

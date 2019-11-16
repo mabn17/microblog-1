@@ -8,3 +8,5 @@ server_user_groups:
 
 pub_ssh_key_location:
   - ~/.ssh/id_rsa.pub
+  - ~/.ssh/first.pub
+  - ~/.ssh/deploy.pub

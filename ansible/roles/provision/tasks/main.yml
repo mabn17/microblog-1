@@ -12,7 +12,6 @@
         region: "{{ region }}"
         keypair: "{{ keypair }}"
         count: 1
-        #count_tag: "{{ item.count_tag }}"
         state: present
     loop: "{{ instances }}"
     register: ec2
