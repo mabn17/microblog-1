@@ -55,6 +55,7 @@ jobs:
           command: |
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             docker push mabn17/microblog-1_prod:latest
+
   update-app-server:
     executor: docker-publisher
     working_directory: ~/project
@@ -74,8 +75,8 @@ jobs:
           name: Prepare password file
           command: echo "$VALUT_PASS" > ~/project/ansible/.vault_password.txt
       - run:
-          name: Decrypt files
-          command: cd ansible && ansible-playbook gather_aws_instances.yml app_server.yml --vault-password-file .vault_password.txt
+          name: Make the update
+          command: cd ansible && ansible-playbook gather_aws_instances.yml app_server.yml --vault-password-file .vault_password.txt -vvvv
 
 workflows:
   version: 2

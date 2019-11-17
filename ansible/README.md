@@ -9,6 +9,8 @@ They also have a [best practice](https://docs.ansible.com/ansible/latest/user_gu
 
 ### How to run playbooks
 
+First open `provision.yml` and replace `<subnet-id>` with a subnet-id from AWS.
+
 Use the command `ansible-playbook` to run playbooks.
 
 To create servers use `ansible-playbook provision.yml`.
@@ -66,7 +68,7 @@ ssh-add ~/.ssh/deploy.pem
 #### AWS
 
 You need credentials from AWS to allow Ansible to manage servers. 
-Use the `insert_aws_keys_in_config.sh` script to paste AWS credentials from clipboard into `aws_keys.yml`.
+Use the `bash insert_aws_keys_in_config.sh` script to paste AWS credentials from clipboard into `aws_keys.yml`.
 
 #### Ansible vault
 

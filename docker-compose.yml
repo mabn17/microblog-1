@@ -36,19 +36,6 @@ services:
     volumes:
       - ./mysql-data:/var/lib/mysql
 
-  prod_no_db:
-    container_name: prod_no_db
-    environment:
-      SECRET_KEY: 1238jasds2dh8akjsdaä2kdsa
-      DATABASE_URL: mysql+pymysql://microblog:pass@0.0.0.0:3306/microblog
-      FLASK_APP: microblog.py
-      FLASK_ENV: production
-    build:
-      context: .
-      dockerfile: docker/Dockerfile_prod
-    ports:
-      - "5000:5000"
-
   start:
     container_name: start
     image: mabn17/microblog-1_prod:latest
