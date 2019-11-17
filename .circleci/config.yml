@@ -75,9 +75,6 @@ jobs:
           name: Prepare password file
           command: echo "$VALUT_PASS" > ~/project/ansible/.vault_password.txt
       - run:
-          name: add ssh key
-          command: echo "SSH_VALUE" > ~/.ssh/first.pem && chmod 400 ~/.ssh/first.pem
-      - run:
           name: Make the update
           command: cd ansible && ansible-playbook gather_aws_instances.yml app_server.yml --vault-password-file .vault_password.txt -vvvv
 
