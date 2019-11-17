@@ -72,6 +72,7 @@ jobs:
           command: |
             sudo python -m pip install --upgrade pip setuptools wheel
             sudo python -m pip install pipenv
+      - run: sudo rm /var/lib/apt/lists/lock
       - run:
           name: Install venv
           command: sudo apt-get install python3-venv
