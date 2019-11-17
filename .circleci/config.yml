@@ -57,6 +57,7 @@ jobs:
             docker push mabn17/microblog-1_prod:latest
   update-app-server:
     executor: docker-publisher
+    working_directory: ~/project
     steps:
       - checkout
       - run:
@@ -65,7 +66,7 @@ jobs:
       - run:
           name: Create venv
           command: python3 -m venv venv
-      - run: echo "source ~/venv/bin/activate" >> $BASH_ENV
+      - run: echo "source ~/project/venv/bin/activate" >> $BASH_ENV
       - run:
           name: Install requirements to deploy app
           command: pip3 install -r requirements/deploy.txt
