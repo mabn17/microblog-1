@@ -81,25 +81,31 @@ workflows:
   version: 2
   build-master:
     jobs:
-      # - test:
-      #     filters:
-      #       branches:
-      #         only: master
-      # - build:
-      #     requires:
-      #       - test
-      #     filters:
-      #       branches:
-      #         only: master
-      # - publish-latest:
-      #     requires:
-      #       - build
-      #     filters:
-      #       branches:
-      #         only: master
-      - update-app-server:
-          # requires:
-            # - publish-latest
+      - test:
           filters:
             branches:
-              only: master
+              ignore: /.*/
+      - build:
+          requires:
+            - test
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v(\d)+(\.(\d)+)+/
+      - publish-latest:
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v(\d)+(\.(\d)+)+/
+      - update-app-server:
+          requires:
+            - publish-latest
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v(\d)+(\.(\d)+)+/
