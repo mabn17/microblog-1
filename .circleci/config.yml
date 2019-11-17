@@ -57,22 +57,22 @@ jobs:
             docker push mabn17/microblog-1_prod:latest
   update-app-server:
     machine:
-      image: circleci/classic:201808-01
+      image: circleci/redis:3.7.0-stretch
     working_directory: ~/project
 
     steps:
       - checkout
-      - run:
-          name: Switch to Python v3.7
-          command: |
-            pyenv versions
-            pyenv global 3.7.0
-      - run:
-          name: install/update pip pipenv
-          command: |
-            sudo python -m pip install --upgrade pip setuptools wheel
-            sudo python -m pip install pipenv
-      - run: sudo rm /var/lib/apt/lists/lock
+      # - run:
+      #     name: Switch to Python v3.7
+      #     command: |
+      #       pyenv versions
+      #       pyenv global 3.7.0
+      # - run:
+      #     name: install/update pip pipenv
+      #     command: |
+      #       sudo python -m pip install --upgrade pip setuptools wheel
+      #       sudo python -m pip install pipenv
+      # - run: sudo rm /var/lib/apt/lists/lock
       - run:
           name: Install venv
           command: sudo apt-get install python3-venv
