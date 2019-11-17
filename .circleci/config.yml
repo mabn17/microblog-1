@@ -56,8 +56,7 @@ jobs:
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             docker push mabn17/microblog-1_prod:latest
   update-app-server:
-    machine:
-      image: circleci/redis:3.7.0-stretch
+    image: circleci/redis:3.7.0-stretch
     working_directory: ~/project
 
     steps:
