@@ -55,6 +55,25 @@ jobs:
           command: |
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             docker push mabn17/microblog-1_prod:latest
+    update-app-server:
+      executor: docker-publisher
+      steps:
+        - checkout
+        - run:
+            name: Install venv
+            command: |
+              apt-get install python3-venv
+        - run:
+            name: Create venv
+            command: python3 -m venv venv
+        - run: echo "source ~/project/venv/bin/activate" >> $BASH_ENV
+        - run:
+            name: Install requirements to deploy app
+            command: pip3 install -r requirements/deploy.txt
+        - run:
+            name: Decrypt files
+            command: cd ansible && ansible-vault decrypt aws_keys.yml && ansible-playbook gather_aws_instances.yml app_server.yml
+
 workflows:
   version: 2
   build-master:
@@ -72,6 +91,12 @@ workflows:
       - publish-latest:
           requires:
             - build
+          filters:
+            branches:
+              only: master
+      - update-app-server:
+          requires:
+            - publish-latest
           filters:
             branches:
               only: master
