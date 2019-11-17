@@ -62,9 +62,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: prepare ssh
-          command: mkdir ~/.ssh
-      - run:
           name: Install venv
           command: sudo apt-get install python3-venv
       - run:
