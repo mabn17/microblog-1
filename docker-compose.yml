@@ -14,7 +14,7 @@ services:
     container_name: prod
     environment:
       SECRET_KEY: 1238jasds2dh8akjsd
-      DATABASE_URL: mysql+pymysql://microblog:pass@{{ groups['database'][0] }}/microblog
+      DATABASE_URL: mysql+pymysql://microblog:pass@dbserver/microblog
       FLASK_APP: microblog.py
       FLASK_ENV: production
     build:

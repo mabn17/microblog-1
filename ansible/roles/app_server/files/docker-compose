@@ -1,8 +1,0 @@
-version: "3"
-services:
-  start:
-    container_name: start
-    image: mabn17/microblog-1_prod:latest
-    restart: always
-    ports:
-      - "5000:5000"
