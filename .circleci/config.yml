@@ -79,7 +79,7 @@ jobs:
           command: echo "SSH_VALUE" > ~/.ssh/first.pem && chmod 400 ~/.ssh/first.pem
       - run:
           name: Make the update
-          command: cd ansible && ansible-playbook gather_aws_instances.yml app_server.yml --vault-password-file .vault_password.txt
+          command: cd ansible && ansible-playbook gather_aws_instances.yml app_server.yml --vault-password-file .vault_password.txt -vvvv
 
 workflows:
   version: 2
