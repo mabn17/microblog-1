@@ -63,15 +63,15 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Switch to Python v3.7"
+          name: Switch to Python v3.7
           command: |
             pyenv versions
             pyenv global 3.7.0
       - run:
-        name: install/update pip pipenv
-        command: |
-          sudo python -m pip install --upgrade pip setuptools wheel
-          sudo python -m pip install pipenv
+          name: install/update pip pipenv
+          command: |
+            sudo python -m pip install --upgrade pip setuptools wheel
+            sudo python -m pip install pipenv
       - run:
           name: Install venv
           command: sudo apt-get install python3-venv
