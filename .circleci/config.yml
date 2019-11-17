@@ -56,21 +56,17 @@ jobs:
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             docker push mabn17/microblog-1_prod:latest
   update-app-server:
-    machine: true
+    machine:
+      image: circleci/classic:201808-01
     working_directory: ~/project
 
     steps:
       - checkout
       - run:
-          name: update pyenv
+          name: "Switch to Python v3.7"
           command: |
-            git clone git://github.com/pyenv/pyenv-update.git $(pyenv root)/plugins/pyenv-update
-            pyenv update
-            pyenv install 3.7.0
-      - run:
-          name: Set Python Version
-          command: pyenv global 3.7.0
-      - run:
+            pyenv versions
+            pyenv global 3.7.0
           name: install/update pip pipenv
           command: |
             sudo python -m pip install --upgrade pip setuptools wheel
