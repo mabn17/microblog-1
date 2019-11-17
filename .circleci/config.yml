@@ -55,6 +55,43 @@ jobs:
           command: |
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             docker push mabn17/microblog-1_prod:latest
+  update-app-server:
+    machine: true
+    working_directory: ~/project
+
+    steps:
+      - checkout
+      - run:
+          name: update pyenv
+          command: |
+            git clone git://github.com/pyenv/pyenv-update.git $(pyenv root)/plugins/pyenv-update
+            pyenv update
+            pyenv install 3.7.0
+      - run:
+          name: Set Python Version
+          command: pyenv global 3.7.0
+      - run:
+          name: install/update pip pipenv
+          command: |
+            sudo python -m pip install --upgrade pip setuptools wheel
+            sudo python -m pip install pipenv
+      - run:
+          name: Install venv
+          command: sudo apt-get install python3-venv
+      - run:
+          name: Create venv
+          command: python3 -m venv venv
+      - run: echo "source ~/project/venv/bin/activate" >> $BASH_ENV
+      - run:
+          name: Install requirements to deploy app
+          command: pip3 install -r requirements/deploy.txt
+      - run:
+          name: Prepare password file
+          command: echo "$VALUT_PASS" > ~/project/ansible.vault_password.txt
+      - run:
+          name: Decrypt files
+          command: cd ansible && ansible-playbook gather_aws_instances.yml app_server.yml --vault-password-file .vault_password.txt
+
   # update-app-server:
   #   executor: docker-publisher
   #   working_directory: ~/project
