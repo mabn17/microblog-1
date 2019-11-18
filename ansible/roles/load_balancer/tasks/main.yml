@@ -10,8 +10,6 @@
         path: /etc/letsencrypt/live/{{ domain_name }}/cert.pem
     register: letsencrypt_cert
 
--   debug: msg="{{ letsencrypt_cert.stat.exists }}"
-
 -   name: Stop all nginx services
     command: service nginx stop
     when: not letsencrypt_cert.stat.exists
@@ -19,10 +17,10 @@
 -   name: Generate new certificate if current does not exist
     shell: "certbot certonly --standalone --noninteractive --expand --agree-tos --email {{ email }} -d {{ domain_name }} -d www.{{ domain_name }}"
     when: not letsencrypt_cert.stat.exists
-    
+
 -   name: Template nginx.conf
     template:
-        src: templates/nginx.conf.j2 #./?
+        src: templates/nginx.conf.j2
         dest: /etc/nginx/nginx.conf
         owner: "{{ server_user }}"
         group: "{{ server_user }}"
@@ -30,12 +28,12 @@
 
 -   name: Template load-balancer.conf
     template:
-        src: templates/load_balancer.conf.j2 #./?
+        src: templates/load_balancer.conf.j2
         dest: /etc/nginx/sites-available/load-balancer.conf
         owner: "{{ server_user }}"
         group: "{{ server_user }}"
         mode: '0644'
-      
+
 -   name: Create a symbolic link between sites-allowed and sites-enabled
     file:
         src: /etc/nginx/sites-available/load-balancer.conf
@@ -44,11 +42,11 @@
         group: "{{ server_user }}"
         state: link
         force: "True"
-    
+
 -   name: Remove default nginx file
     file:
         path: /etc/nginx/sites-enabled/default
         state: absent
-    
+
 -   name: Restart nginx service
     command: service nginx start
