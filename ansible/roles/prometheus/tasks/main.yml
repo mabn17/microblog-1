@@ -1,0 +1,17 @@
+---
+-   name: Create default folder for prometheus
+        file: "state=directory path={{ prometheus_path }}"
+-   name: Download prometheus from github
+        get_url:
+            url: "https://github.com/prometheus/prometheus/releases/download/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
+            dest: "{{ prometheus_path }}"
+            mode: '0440'
+-   name: Extracting prometheus
+        unarchive:
+            src: "prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
+            dest: "{{ prometheus_path }}"
+-   name: Enter new folder
+    command: "cd prometheus-{{ prometheus_version }}.linux-amd64/"
+
+# Replace prometheus-{{ prometheus_version }}.linux-amd64/prometheus.yml
+# with new config inside templates and start it in the backgorund

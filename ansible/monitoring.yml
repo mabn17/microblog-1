@@ -1,0 +1,10 @@
+---
+    -   hosts: monitoring
+        remote_user: mabn
+        become: yes
+        become_method: sudo
+        # vars:
+        #   ansible_python_interpreter: /usr/bin/python3 # Required to avoid interpreter error
+        roles:
+          - grafana
+          - prometheus
