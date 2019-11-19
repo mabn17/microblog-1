@@ -23,6 +23,19 @@ jobs:
           name: run docker tests
           command: |
             make test
+  test_all:
+    machine: true
+    working_directory: ~/repo
+
+    environment:
+      FLASK_ENV: test
+      FLASK_APP: microblog.py
+    steps:
+      - checkout
+      - run:
+          name: run docker tests
+          command: |
+            make test
   build:
     executor: docker-publisher
     steps:
@@ -81,7 +94,7 @@ workflows:
   version: 2
   build-master:
     jobs:
-      - test:
+      - test_all:
           filters:
             branches:
               only: master
