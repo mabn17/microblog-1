@@ -1,4 +1,3 @@
 ---
 
-prometheus_path: /etc/prometheus
 prometheus_version: 2.10.0

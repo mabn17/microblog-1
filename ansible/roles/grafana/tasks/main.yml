@@ -1,0 +1,10 @@
+---
+-   name: Ensures that the monitoring directory exists
+        file: "state=directory path={{ monitoring_directory }}"
+-   name: Download graphana
+        get_url:
+            url: "https://dl.grafana.com/oss/release/grafana_{{ grafana_version }}_amd64.deb"
+            dest: "{{ monitoring_directory }}"
+            mode: '0440'
+-   name: Extract the files
+    command: dpkg -i grafana_{{ grafana_version }}_amd64.deb
