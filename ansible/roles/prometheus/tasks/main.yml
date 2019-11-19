@@ -12,6 +12,12 @@
             dest: "{{ monitoring_directory }}"
 -   name: Enter new folder
     command: "cd prometheus-{{ prometheus_version }}.linux-amd64/"
-
-# Replace prometheus-{{ prometheus_version }}.linux-amd64/prometheus.yml
-# with new config inside templates and start it in the backgorund
+-   name: Move add the configuration file
+        template:
+            src: templates/prometheus
+            dest: "prometheus-{{ prometheus_version }}.linux-amd64/prometheus.yml"
+            owner: "{{ server_user }}"
+            group: "{{ server_user }}"
+            mode: '0644'
+-   name: Start prometheus
+    command: ./prometheus &
