@@ -1,8 +1,8 @@
 ---
--   name: Copy docker-compose file to host
+-   name: Copy sql file to host
     copy:
-        src: files/docker-compose
-        dest: /home/{{ server_user }}/docker-compose.yml
+        src: files/dump.sql
+        dest: /home/{{ server_user }}/dump.sql
         owner: "{{ server_user }}"
         group: "{{ server_user }}"
         mode: '0644'
@@ -16,17 +16,16 @@
 -   name: Run docker-compose up to start MySql
     docker_compose:
         project_src: /home/{{ server_user }}/
-
-
 -   name: Prepare exporter user
-    shell: sudo docker exec {{ container_name }} mysql -u{{ MYSQL_USER }} -p{{ MYSQL_PASSWORD }} < files/dump.sql # -t? -i?
-
+    # sudo docker exec -i microblog-database mysql -uroot -ppass < dump.sql
+    # command: "sudo docker exec -i {{ container_name }} mysql -u{{ MYSQL_ROOT_USER }} -p{{ MYSQL_ROOT_PASSWORD }} {{ MYSQL_DATABASE }} < /home/{{ server_user }}/dump.sql"
+    shell: docker exec -i microblog-database mysql -uroot -ppass < dump.sql
+    ignore_errors: yes
 -   name: Pull prom/mysql-exporter
-    shell: sudo docker pull prom/mysqld-exporter # sudo?
-
+    command: docker pull prom/mysqld-exporter
 -   name: Run prom container
-    shell: sudo docker run -d \
-            -p {{ monitor_host_port }}:{{ monitor_container_port }} \
+    command: docker run -d \
+            -p {{ monitor_host_port }}:{{ monitor_conteiner_port }} \
             --network host \
             -e DATA_SOURCE_NAME="exporter:{{ MYSQL_PASSWORD }}@(localhost:{{ host_port }})/" \
             --restart {{ policy }} \
