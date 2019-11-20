@@ -1,23 +1,25 @@
 ---
 -   name: Create default folder for prometheus
-        file: "state=directory path={{ monitoring_directory }}"
+    file:
+        state: directory
+        path: "{{ monitoring_directory }}"
 -   name: Download prometheus from github
-        get_url:
-            url: "https://github.com/prometheus/prometheus/releases/download/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
-            dest: "{{ monitoring_directory }}"
-            mode: '0440'
+    get_url:
+        url: "https://github.com/prometheus/prometheus/releases/download/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
+        dest: "{{ monitoring_directory }}"
+        mode: '0440'
 -   name: Extracting prometheus
-        unarchive:
-            src: "prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
-            dest: "{{ monitoring_directory }}"
+    unarchive:
+        src: "{{ monitoring_directory }}/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
+        dest: "{{ monitoring_directory }}"
 -   name: Enter new folder
     command: "cd prometheus-{{ prometheus_version }}.linux-amd64/"
 -   name: Move add the configuration file
-        template:
-            src: templates/prometheus
-            dest: "prometheus-{{ prometheus_version }}.linux-amd64/prometheus.yml"
-            owner: "{{ server_user }}"
-            group: "{{ server_user }}"
-            mode: '0644'
+    template:
+        src: templates/prometheus
+        dest: "prometheus-{{ prometheus_version }}.linux-amd64/prometheus.yml"
+        owner: "{{ server_user }}"
+        group: "{{ server_user }}"
+        mode: '0644'
 -   name: Start prometheus
     command: ./prometheus &

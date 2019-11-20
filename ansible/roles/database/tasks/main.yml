@@ -19,7 +19,7 @@
 -   name: Prepare exporter user
     # sudo docker exec -i microblog-database mysql -uroot -ppass < dump.sql
     # command: "sudo docker exec -i {{ container_name }} mysql -u{{ MYSQL_ROOT_USER }} -p{{ MYSQL_ROOT_PASSWORD }} {{ MYSQL_DATABASE }} < /home/{{ server_user }}/dump.sql"
-    shell: docker exec -i microblog-database mysql -uroot -ppass < dump.sql
+    shell: docker exec -i microblog-database mysql -uroot -ppass < /home/{{ server_user }}/dump.sql
     ignore_errors: yes
 -   name: Pull prom/mysql-exporter
     command: docker pull prom/mysqld-exporter
@@ -27,7 +27,7 @@
     command: docker run -d \
             -p {{ monitor_host_port }}:{{ monitor_conteiner_port }} \
             --network host \
-            -e DATA_SOURCE_NAME="exporter:{{ MYSQL_PASSWORD }}@(localhost:{{ host_port }})/" \
+            -e DATA_SOURCE_NAME="exporter:pass@(localhost:{{ host_port }})/" \
             --restart {{ policy }} \
             prom/{{ monitor_image_name }} \
             --collect.auto_increment.columns \
