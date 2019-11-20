@@ -88,7 +88,7 @@ jobs:
           command: echo "$VALUT_PASS" > ~/project/ansible/.vault_password.txt
       - run:
           name: Decrypt files and push to app_server
-          command: cd ansible && ansible-playbook gather_aws_instances.yml app_server.yml --vault-password-file .vault_password.txt
+          command: cd ansible && ansible-playbook gather_aws_instances.yml udpate_image.yml --vault-password-file .vault_password.txt
 
 workflows:
   version: 2
