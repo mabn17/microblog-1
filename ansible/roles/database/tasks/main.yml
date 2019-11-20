@@ -13,14 +13,32 @@
         owner: "{{ server_user }}"
         group: "{{ server_user }}"
         mode: '0644'
-
-
 -   name: Run docker-compose up to start MySql
     docker_compose:
         project_src: /home/{{ server_user }}/
+
 
 # run command docker exec -it {{ container_name }} mysql -u{{ MYSQL_USER }} -p{{ MYSQL_PASSWORD }}
 # and add:
 # mysql> CREATE USER 'exporter'@'%' IDENTIFIED BY '<password>' WITH MAX_USER_CONNECTIONS 3;
 # mysql> GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'exporter'@'%';
 # mysql> GRANT SELECT ON performance_schema.* TO 'exporter'@'%';
+
+# -   name: Prepare exporter user
+#     shell: sudo docker exec -it {{ container_name }} mysql -u{{ MYSQL_USER }} -p{{ MYSQL_PASSWORD }}  < files/dump.sql
+
+# -   name: Pull prom/mysql-exporter
+#     shell: sudo docker pull prom/mysqld-exporter # sudo?
+
+# -   name: Run prom container
+#     shell: sudo docker run -d \
+#             -p {{ monitor_host_port }}:{{ monitor_container_port }} \
+#             --network host \
+#             -e DATA_SOURCE_NAME="exporter:{{ MYSQL_PASSWORD }}@(localhost:{{ host_port }})/" \
+#             --restart {{ policy }} \
+#             prom/{{ monitor_image_name }} \
+#             --collect.auto_increment.columns \
+#             --collect.binlog_size \
+#             --collect.engine_innodb_status \
+#             --collect.engine_tokudb_status \
+#             --collect.global_status

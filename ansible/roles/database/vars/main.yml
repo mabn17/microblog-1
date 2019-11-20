@@ -12,3 +12,8 @@ host_volume: /home/{{ server_user }}/mysql-data
 
 conteiner_port: 3306
 container_volume: /var/lib/mysql
+
+
+monitor_image_name: mysqld-exporter:latest
+monitor_host_port: 9104
+monitor_conteiner_port: 9104
