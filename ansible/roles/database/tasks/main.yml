@@ -6,7 +6,21 @@
         owner: "{{ server_user }}"
         group: "{{ server_user }}"
         mode: '0644'
+-   name: Copy docker-compose template file
+    template:
+        src: templates/docker-compose
+        dest: /home/{{ server_user }}/docker-compose.yml
+        owner: "{{ server_user }}"
+        group: "{{ server_user }}"
+        mode: '0644'
+
 
 -   name: Run docker-compose up to start MySql
     docker_compose:
         project_src: /home/{{ server_user }}/
+
+# run command docker exec -it {{ container_name }} mysql -u{{ MYSQL_USER }} -p{{ MYSQL_PASSWORD }}
+# and add:
+# mysql> CREATE USER 'exporter'@'%' IDENTIFIED BY '<password>' WITH MAX_USER_CONNECTIONS 3;
+# mysql> GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'exporter'@'%';
+# mysql> GRANT SELECT ON performance_schema.* TO 'exporter'@'%';

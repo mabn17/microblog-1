@@ -1,0 +1,14 @@
+---
+
+container_name: microblog-database
+image_name: mysql/mysql-server:5.7
+MYSQL_DATABASE: microblog
+MYSQL_USER: microblog
+MYSQL_PASSWORD: pass
+policy: "always"
+
+host_port: 3306
+host_volume: /home/{{ server_user }}/mysql-data
+
+conteiner_port: 3306
+container_volume: /var/lib/mysql
