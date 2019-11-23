@@ -6,5 +6,5 @@
         vars:
           ansible_python_interpreter: /usr/bin/python3 # Required to avoid interpreter error
         roles:
-          - docker_requirements
+          # - docker_requirements
           - database
