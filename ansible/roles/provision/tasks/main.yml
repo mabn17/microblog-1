@@ -56,18 +56,18 @@
 
 
 
--   name: Set domain to LB ip in AWS (route53)
-    route53:
-        aws_access_key: "{{ aws_access_key }}"
-        aws_secret_key: "{{ aws_secret_key }}"
-        security_token: "{{ aws_session_token }}"
-        state: present
-        zone: "{{ domain_name }}"
-        record: "{{ item }}"
-        value: "{{lb_eip }}"
-        type: A
-        overwrite: yes
-        wait: yes
-    with_items:
-        -   "{{ domain_name }}"
-        -   "www.{{ domain_name }}"
+# -   name: Set domain to LB ip in AWS (route53)
+#     route53:
+#         aws_access_key: "{{ aws_access_key }}"
+#         aws_secret_key: "{{ aws_secret_key }}"
+#         security_token: "{{ aws_session_token }}"
+#         state: present
+#         zone: "{{ domain_name }}"
+#         record: "{{ item }}"
+#         value: "{{lb_eip }}"
+#         type: A
+#         overwrite: yes
+#         wait: yes
+#     with_items:
+#         -   "{{ domain_name }}"
+#         -   "www.{{ domain_name }}"

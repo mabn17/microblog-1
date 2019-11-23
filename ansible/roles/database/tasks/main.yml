@@ -32,7 +32,20 @@
             --restart {{ policy }} \
             prom/{{ monitor_image_name }} \
             --collect.auto_increment.columns \
+            --collect.info_schema.processlist \
             --collect.binlog_size \
             --collect.engine_innodb_status \
             --collect.engine_tokudb_status \
             --collect.global_status
+
+# docker run -d \
+#   -p 9104:9104 \
+#   --network host \
+#   -e DATA_SOURCE_NAME="exporter:pass@(localhost:3306)/" \
+#   --restart always\
+#   prom/mysqld-exporter:latest \
+#   --collect.auto_increment.columns \
+#   --collect.binlog_size \
+#   --collect.engine_innodb_status \
+#   --collect.engine_tokudb_status \
+#   --collect.global_status
