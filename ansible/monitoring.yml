@@ -5,4 +5,5 @@
         become_method: sudo
         roles:
           - prometheus
+          - prometheus_node_exporter
           - grafana

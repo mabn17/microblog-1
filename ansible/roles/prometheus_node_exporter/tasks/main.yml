@@ -45,7 +45,7 @@
 
 - name: Check if node exporter emits metrices
   uri:
-    url: http://127.0.0.1:9100/metrics
+    url: "http://{{ monitoring_ip }}:9100/metrics"
     method: GET
     status_code: 200
   ignore_errors: yes
