@@ -2,9 +2,9 @@
 serviceName: "prometheus"
 userId: "prometheus"
 groupId: "prometheus"
-exec_command: "/usr/local/bin/prometheus --config.file=/etc/prometheus/prometheus.conf --storage.tsdb.path=/data/prometheus --storage.tsdb.retention.time=2d"
+exec_command: "/usr/local/bin/prometheus --config.file=/etc/prometheus/prometheus.conf --storage.tsdb.path=/home/{{ server_user }}/data --storage.tsdb.retention.time=2d"
 version: "2.10.0"
-
+# data/prometheus
 database_ip: "{{ groups['database'][0] }}"
 database_port: 9104
 litsen_database: "{{ database_ip }}:{{ database_port }}"

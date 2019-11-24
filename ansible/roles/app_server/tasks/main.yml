@@ -12,8 +12,9 @@
 
 -   name: Run prom container
     command: docker run -dP --net=host \
-            -v ${PWD}/statsd.conf:/statsd/statsd.conf \
-            prom/statsd-exporter "-statsd.mapping-config=/statsd/statsd.conf"
+            --restart=always \
+            -v /home/{{ server_user }}/statsd.conf:/statsd/statsd.conf \
+            prom/statsd-exporter "--statsd.mapping-config=/statsd/statsd.conf"
 
 -   name: "Launch docker container with microblog application"
     docker_container:
