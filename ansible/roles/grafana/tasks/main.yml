@@ -11,11 +11,16 @@
     force_apt_get: yes
     name: "{{ packages }}"
 
-- name: Download grafana dashboards
-  get_url:
-    url: "https://github.com/percona/grafana-dashboards.git"
-    dest: "/var/lib/grafana/"
-    mode: '0644'
+- name: ansible create directory example
+  file:
+    path: "/var/lib/grafana/"
+    state: directory
+
+# - name: Download grafana dashboards
+#   get_url:
+#     url: "https://github.com/percona/grafana-dashboards.git"
+#     dest: "/var/lib/grafana/"
+#     mode: '0644'
 
 # apt --fix-broken-install?
 - name: Download graphana
@@ -24,12 +29,26 @@
     dest: "/etc/prometheus"
     mode: '0440'
 
+# git clone https://github.com/percona/grafana-dashboards.git
+# cp -r grafana-dashboards/dashboards /var/lib/grafana/
+
+- name: Downloading dashboards
+  git:
+    repo: "https://github.com/percona/grafana-dashboards.git"
+    dest: "/home/{{ server_user }}/grafana-dashboards"
+
+- name: Copy file to correct path
+  copy:
+    src: "/home/{{ server_user }}/grafana-dashboards"
+    dest: /var/lib/grafana/
+    remote_src: yes
+
 - name: Install grafana
   command: sudo dpkg -i /etc/prometheus/grafana_{{ version }}_amd64.deb
 
 - name: "Grafana configuration file copy"
   template:
-    src: "templates/grafana.conf.j2"
+    src: "temlplates/grafana.conf.j2"
     dest: /etc/grafana/grafana.ini
   notify: event_restart_grafana
 

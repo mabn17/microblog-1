@@ -48,5 +48,17 @@
         path: /etc/nginx/sites-enabled/default
         state: absent
 
+-   name: Pull nginx/nginx-prometheus-exporter
+    command: docker pull nginx/nginx-prometheus-exporter
+
+-   name: Run prom container
+    command: docker run -d \
+            -p {{ monitor_host_port }}:{{ monitor_conteiner_port }} \
+            nginx/nginx-prometheus-exporter:{{ nginx_prom_version }} \
+            -nginx.scrape-uri=https://{{ domain_name }}/{{ prom_proxy_path }} \
+            -nginx.retries=10 \
+            -nginx.ssl-verify=false \
+            -web.telemetry-path=/prometheus
+
 -   name: Restart nginx service
     command: service nginx start

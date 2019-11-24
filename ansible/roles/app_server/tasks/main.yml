@@ -8,3 +8,19 @@
         restart_policy: "{{ policy }}"
         env:
           DATABASE_URL: "{{ database_url }}"
+
+-   name: Move conf file
+    copy:
+        src: files/statsd.conf.j2
+        dest: /home/{{ server_user }}/statsd.conf
+        owner: "{{ server_user }}"
+        group: "{{ server_user }}"
+        mode: '0644'
+
+-   name: Pull prom/statsd-exporter
+    command: docker pull prom/statsd-exporter
+
+-   name: Run prom container
+    command: docker run -dP --net=host \
+            -v ${PWD}/statsd.conf:/statsd/statsd.conf \
+            prom/statsd-exporter "-statsd.mapping-config=/statsd/statsd.conf"
