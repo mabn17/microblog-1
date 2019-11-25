@@ -10,4 +10,4 @@ while true; do
 done
 flask translate compile
 #exec gunicorn -b :5000 --access-logfile - --error-logfile - microblog:app
-exec gunicorn --statsd-host=localhost:9125 --statsd-prefix=helloworld --b :5000 microblog:app
+exec gunicorn --statsd-host=localhost:9125 --statsd-prefix=helloworld -b :5000 microblog:app
