@@ -10,7 +10,7 @@ database_port: 9104
 litsen_database: "{{ database_ip }}:{{ database_port }}"
 
 app_ip: "{{ groups['appServer'][0] }}"
-app_port: 9125
+app_port: 9102
 litsen_app: "{{ app_ip }}:{{ app_port }}"
 
 load_ip: "{{ groups['loadBalancer'][0] }}"
