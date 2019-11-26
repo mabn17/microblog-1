@@ -6,3 +6,4 @@ policy: always
 host_port: 5000
 container_port: 5000
 database_url: mysql+pymysql://microblog:pass@{{ groups['database'][0] }}/microblog
+docker_network: host

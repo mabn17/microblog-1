@@ -24,5 +24,6 @@
         ports:
           - "{{ host_port }}:{{ container_port }}"
         restart_policy: "{{ policy }}"
+        network_mode: "{{ docker_network }}"
         env:
           DATABASE_URL: "{{ database_url }}"
