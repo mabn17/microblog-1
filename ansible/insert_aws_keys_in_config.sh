@@ -16,4 +16,4 @@ else
 fi
 
 echo "$copied_text" | dos2unix | $sed_type -e '1s/^/---\n/' -e 's/\[default\]//' -e 's/access_key=/key=/' -e 's/key_id/key/' -re 's/(key|token)=(\w)/\1: \2/g' > aws_keys.yml
-#ansible-vault encrypt aws_keys.yml
+ansible-vault encrypt aws_keys.yml
