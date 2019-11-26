@@ -39,8 +39,6 @@ scrape_configs:
       labels:
         instance: lb
 
-  - job_name: 'gunicorn'
+  - job_name: 'helloworld_gunicorn'
     static_configs:
     - targets: ['{{ litsen_app }}']
-      labels:
-        instance: as

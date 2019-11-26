@@ -13,7 +13,7 @@
 -   name: Run prom container
     command: docker run -dP --net=host \
             --restart=always \
-            -p 9102:9102 -p 9125:9125 -p 9125:9125/tcp \
+            -p 9102:9102 -p 9125:9125 -p 9125:9125/udp \
             -v /home/{{ server_user }}/statsd.conf:/statsd/statsd.conf \
             prom/statsd-exporter "--statsd.mapping-config=/statsd/statsd.conf"
 
