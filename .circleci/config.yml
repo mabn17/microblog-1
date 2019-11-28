@@ -146,7 +146,7 @@ workflows:
             ignore: /.*/
       - update-app-server:
           requires:
-            - snyk/scan
+            - publish-latest
           filters:
             tags:
               only: /^v[0-9]++.[0-9]++.[0-9]++$/
