@@ -14,3 +14,7 @@ ExecStart={{ exec_command }}
 
 [Install]
 WantedBy=multi-user.target
+
+[server]
+domain = {{ domain_name }}
+root_url = %(protocol)s://%(domain)s/prometheus/
