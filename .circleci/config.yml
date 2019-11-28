@@ -9,6 +9,7 @@ executors:
       IMAGE_NAME: microblog-1_prod
       CI_IMAGE_NAME: project_prod
       IMG_SHORT: prod
+      FULL_IMG_NAME: mabn17/microblog-1_prod:latest
     docker:
       - image: circleci/buildpack-deps:stretch
 jobs:
@@ -136,14 +137,14 @@ workflows:
               only: /^v[0-9]++.[0-9]++.[0-9]++$/
             branches:
               ignore: /.*/
-      - snyk/scan:
+      - snyk:
           requires:
             - publish-latest
           tags:
             only: /^v[0-9]++.[0-9]++.[0-9]++$/
           branches:
             ignore: /.*/
-          docker-image-name: $IMAGE_NAME
+          docker-image-name: $FULL_IMG_NAME
       - update-app-server:
           requires:
             - snyk/scan
