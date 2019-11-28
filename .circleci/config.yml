@@ -12,6 +12,21 @@ executors:
     docker:
       - image: circleci/buildpack-deps:stretch
 jobs:
+  snyk:
+    docker:
+      - image: circleci/python:3.5
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: install dependencies
+          command: |
+              python3 -m venv venv
+              . venv/bin/activate
+              make install
+      - run: echo "source ~/repo/venv/bin/activate" >> $BASH_ENV
+      - snyk/scan
+
   test:
     machine: true
     working_directory: ~/repo
@@ -67,7 +82,7 @@ jobs:
           command: docker load -i /tmp/workspace/image.tar
       - snyk/scan:
           token-variable: SNYK_TOKEN
-          docker-image-name: $CI_IMAGE_NAME:latest
+          docker-image-name: mabn17/microblog-1_prod
       - run:
           name: Publish Docker Image to Docker Hub
           command: |
@@ -94,20 +109,6 @@ jobs:
       - run:
           name: Decrypt files and push to app_server
           command: cd ansible && ansible-playbook gather_aws_instances.yml udpate_image.yml --vault-password-file .vault_password.txt
-  snyk:
-    docker:
-      - image: circleci/python:3.5
-    working_directory: ~/repo
-    steps:
-        - checkout
-        - run:
-            name: install dependencies
-            command: |
-              python3 -m venv venv
-              . venv/bin/activate
-              make install
-        - run: echo "source ~/repo/venv/bin/activate" >> $BASH_ENV
-        - snyk/scan
 
 workflows:
   version: 2
@@ -117,13 +118,13 @@ workflows:
           filters:
             branches:
               only: master
-      - snyk:
+      - test:
           filters:
             tags:
               only: /^v[0-9]++.[0-9]++.[0-9]++$/
             branches:
               ignore: /.*/
-      - test:
+      - snyk:
           filters:
             tags:
               only: /^v[0-9]++.[0-9]++.[0-9]++$/
@@ -132,6 +133,7 @@ workflows:
       - build:
           requires:
             - test
+            - snyk
           filters:
             tags:
               only: /^v[0-9]++.[0-9]++.[0-9]++$/
