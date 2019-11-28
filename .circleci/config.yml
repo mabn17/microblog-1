@@ -136,7 +136,7 @@ workflows:
               only: /^v[0-9]++.[0-9]++.[0-9]++$/
             branches:
               ignore: /.*/
-      - snyk/scan:
+      - snyk:
           docker-image-name: mabn17/microblog-1_prod
           requires:
             - publish-latest
