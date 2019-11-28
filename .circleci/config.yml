@@ -1,4 +1,6 @@
 version: 2.1
+orbs: 
+  snyk: snyk/snyk@0.0.8
 executors:
   docker-publisher:
     environment:
@@ -89,6 +91,20 @@ jobs:
       - run:
           name: Decrypt files and push to app_server
           command: cd ansible && ansible-playbook gather_aws_instances.yml udpate_image.yml --vault-password-file .vault_password.txt
+  snyk:
+    docker:
+      - image: circleci/python:3.5
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            make install
+      - run: echo "source ~/repo/venv/bin/activate" >> $BASH_ENV
+      - snyk/scan
 
 workflows:
   version: 2
@@ -120,9 +136,17 @@ workflows:
               only: /^v[0-9]++.[0-9]++.[0-9]++$/
             branches:
               ignore: /.*/
-      - update-app-server:
+      - snyk/scan:
           requires:
             - publish-latest
+          tags:
+            only: /^v[0-9]++.[0-9]++.[0-9]++$/
+          branches:
+            ignore: /.*/
+          docker-image-name: $IMAGE_NAME
+      - update-app-server:
+          requires:
+            - snyk/scan
           filters:
             tags:
               only: /^v[0-9]++.[0-9]++.[0-9]++$/
