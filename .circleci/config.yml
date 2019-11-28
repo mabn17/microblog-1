@@ -94,7 +94,6 @@ jobs:
           name: Decrypt files and push to app_server
           command: cd ansible && ansible-playbook gather_aws_instances.yml udpate_image.yml --vault-password-file .vault_password.txt
   snyk:
-    snyk:
     docker:
       - image: circleci/python:3.5
     working_directory: ~/repo
