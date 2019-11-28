@@ -136,14 +136,10 @@ workflows:
               only: /^v[0-9]++.[0-9]++.[0-9]++$/
             branches:
               ignore: /.*/
-      - snyk:
-          docker-image-name: mabn17/microblog-1_prod
-          requires:
-            - publish-latest
-          tags:
-            only: /^v[0-9]++.[0-9]++.[0-9]++$/
-          branches:
-            ignore: /.*/
+      # - snyk:
+      #     docker-image-name: mabn17/microblog-1_prod
+      #     requires:
+      #       - publish-latest
       - update-app-server:
           requires:
             - publish-latest
