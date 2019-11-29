@@ -123,7 +123,19 @@ run-test:
 .PHONY: exec-tests
 exec-tests: test-unit test-integration
 
+# target: bandit                 - Run secirity tests with bandit
+.PHONY: bandit
+bandit:
+	bandit -c .bandit.yml -r app
 
+# target: Zap                 - Run secirity tests with bandit
+.PHONY: Zap
+Zap:
+	docker run owasp/zap2docker-weekly zap-baseline.py -t https://dbwebb.wtf
+
+.PHONY: zap_http
+zap_http:
+	docker run owasp/zap2docker-weekly zap-baseline.py -t http://dbwebb.wtf
 
 # target: test                         - Run tests and display code coverage
 .PHONY: test
