@@ -73,6 +73,10 @@
             to_port: 9090
             cidr_ip: "{{ groups['loadBalancer'][0] }}/32"
           - proto: tcp
+            from_port: 9090
+            to_port: 9090
+            cidr_ip: "{{ groups['monitoring'][0] }}/32"
+          - proto: tcp
             from_port: 9093
             to_port: 9093
             cidr_ip: "{{ groups['monitoring'][0] }}/32"

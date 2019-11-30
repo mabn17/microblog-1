@@ -2,7 +2,7 @@
 serviceName: "prometheus"
 userId: "prometheus"
 groupId: "prometheus"
-exec_command: "/usr/bin/sudo /usr/local/bin/prometheus --config.file=/etc/prometheus/prometheus.conf --storage.tsdb.path=/data/prometheus --storage.tsdb.retention.time=2d"
+exec_command: "/usr/bin/sudo /usr/local/bin/prometheus --web.external-url=https://dbwebb.wtf/prometheus --web.route-prefix="/" --web.enable-lifecycle --config.file=/etc/prometheus/prometheus.conf --storage.tsdb.path=/data/prometheus --storage.tsdb.retention.time=2d"
 version: "2.10.0"
 # data/prometheus
 database_ip: "{{ groups['database'][0] }}"
