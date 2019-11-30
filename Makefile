@@ -30,7 +30,6 @@ else
 	browser = firefox
 endif
 
-
 # Detect OS
 OS = $(shell uname -s)
 
@@ -131,11 +130,8 @@ bandit:
 # target: Zap                 - Run secirity tests with bandit
 .PHONY: Zap
 Zap:
-	docker run owasp/zap2docker-weekly zap-baseline.py -t https://dbwebb.wtf
+	docker run --net host owasp/zap2docker-weekly zap-baseline.py -t https://dbwebb.wtf
 
-.PHONY: zap_http
-zap_http:
-	docker run owasp/zap2docker-weekly zap-baseline.py -t http://dbwebb.wtf
 
 # target: test                         - Run tests and display code coverage
 .PHONY: test
