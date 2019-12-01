@@ -53,42 +53,13 @@ jobs:
           name: run docker tests
           command: |
             make test
-  # test_zap:
-  #   docker:
-  #     - image: circleci/buildpack-deps:stretch
-  #   working_directory: ~/repo
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: Install others
-  #         command: |
-  #           curl -O https://download.docker.com/linux/ubuntu/dists/bionic/pool/edge/amd64/containerd.io_1.2.5-1_amd64.deb
-  #           sudo apt install ./containerd.io_1.2.5-1_amd64.deb
-  #     - run:
-  #         name: Install docker
-  #         command: |
-  #           sudo apt-get update --fix-missing
-  #           sudo apt-get install -y apt-transport-https ca-certificates software-properties-common
-  #           curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  #           sudo apt-key fingerprint 0EBFCD88
-  #           sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
-  #           sudo apt-get update
-  #           sudo apt-get install -y docker-ce
-  #           sudo docker --version
-  #     - run:
-  #         name: Install venv
-  #         command: sudo apt-get install python3-venv
-  #     - run:
-  #         name: install dependencies
-  #         command: |
-  #             python3 -m venv venv
-  #             . venv/bin/activate
-  #             make install-test
-  #     - run: echo "source ~/repo/venv/bin/activate" >> $BASH_ENV
-  #     - run:
-  #         name: run zap tests
-  #         command: |
-  #           make Zap_two
+  test_zap:
+    machine: true
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run: docker pull owasp/zap2docker-weekly
+      - run: docker run owasp/zap2docker-weekly zap-baseline.py -t https://martinborg.me
 
   build:
     executor: docker-publisher
@@ -155,10 +126,10 @@ workflows:
           filters:
             branches:
               only: master
-      # - test_zap:
-      #     filters:
-      #       branches:
-      #         only: master
+      - test_zap:
+          filters:
+            branches:
+              only: master
       - test:
           filters:
             tags:
