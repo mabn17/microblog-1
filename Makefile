@@ -134,7 +134,7 @@ Zap:
 
 .PHONY: Zap_two
 Zap_two:
-	docker run --net host owasp/zap2docker-weekly zap-baseline.py -t https://martinborg.me
+	sudo docker run --net host owasp/zap2docker-weekly zap-baseline.py -t https://martinborg.me
 
 
 # target: test                         - Run tests and display code coverage
