@@ -55,7 +55,7 @@ jobs:
             make test
   test_zap:
     docker:
-      - image: circleci/python:3.5
+      - image: circleci/buildpack-deps:stretch
     working_directory: ~/repo
     steps:
       - checkout
