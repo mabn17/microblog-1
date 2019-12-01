@@ -60,6 +60,11 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install others
+          command: |
+            curl -O https://download.docker.com/linux/ubuntu/dists/bionic/pool/edge/amd64/containerd.io_1.2.0-1_amd64.deb
+            sudo apt install ./containerd.io_1.2.0-1_amd64.deb
+      - run:
           name: Install docker
           command: |
             sudo apt-get update --fix-missing
