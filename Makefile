@@ -132,11 +132,6 @@ bandit:
 Zap:
 	docker run --net host owasp/zap2docker-weekly zap-baseline.py -t https://dbwebb.wtf
 
-.PHONY: Zap_two
-Zap_two:
-	sudo docker run --net host owasp/zap2docker-weekly zap-baseline.py -t https://martinborg.me
-
-
 # target: test                         - Run tests and display code coverage
 .PHONY: test
 test:
