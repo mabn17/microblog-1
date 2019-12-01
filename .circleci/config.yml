@@ -60,6 +60,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install venv
+          command: sudo apt-get install python3-venv
+      - run:
           name: install dependencies
           command: |
               python3 -m venv venv
