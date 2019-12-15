@@ -126,47 +126,47 @@ workflows:
           filters:
             branches:
               only: master
-      - test:
-          filters:
-            tags:
-              only: /^v[0-9]++.[0-9]++.[0-9]++$/
-            branches:
-              ignore: /.*/
-      - snyk:
-          filters:
-            tags:
-              only: /^v[0-9]++.[0-9]++.[0-9]++$/
-            branches:
-              ignore: /.*/
-      - test_zap:
-          filters:
-            tags:
-              only: /^v[0-9]++.[0-9]++.[0-9]++$/
-            branches:
-              ignore: /.*/
-      - build:
-          requires:
-            - test
-            - snyk
-            - test_zap
-          filters:
-            tags:
-              only: /^v[0-9]++.[0-9]++.[0-9]++$/
-            branches:
-              ignore: /.*/
-      - publish-latest:
-          requires:
-            - build
-          filters:
-            tags:
-              only: /^v[0-9]++.[0-9]++.[0-9]++$/
-            branches:
-              ignore: /.*/
-      - update-app-server:
-          requires:
-            - publish-latest
-          filters:
-            tags:
-              only: /^v[0-9]++.[0-9]++.[0-9]++$/
-            branches:
-              ignore: /.*/
+      # - test:
+      #     filters:
+      #       tags:
+      #         only: /^v[0-9]++.[0-9]++.[0-9]++$/
+      #       branches:
+      #         ignore: /.*/
+      # - snyk:
+      #     filters:
+      #       tags:
+      #         only: /^v[0-9]++.[0-9]++.[0-9]++$/
+      #       branches:
+      #         ignore: /.*/
+      # - test_zap:
+      #     filters:
+      #       tags:
+      #         only: /^v[0-9]++.[0-9]++.[0-9]++$/
+      #       branches:
+      #         ignore: /.*/
+      # - build:
+      #     requires:
+      #       - test
+      #       - snyk
+      #       - test_zap
+      #     filters:
+      #       tags:
+      #         only: /^v[0-9]++.[0-9]++.[0-9]++$/
+      #       branches:
+      #         ignore: /.*/
+      # - publish-latest:
+      #     requires:
+      #       - build
+      #     filters:
+      #       tags:
+      #         only: /^v[0-9]++.[0-9]++.[0-9]++$/
+      #       branches:
+      #         ignore: /.*/
+      # - update-app-server:
+      #     requires:
+      #       - publish-latest
+      #     filters:
+      #       tags:
+      #         only: /^v[0-9]++.[0-9]++.[0-9]++$/
+      #       branches:
+      #         ignore: /.*/
